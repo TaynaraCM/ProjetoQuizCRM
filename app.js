@@ -21,13 +21,32 @@ Link do repositório do curso: https://github.com/roger-melo-treinamentos/curso-
 
 Ps: se você não conseguiu fazer tudo o que foi pedido acima, abra a issue mesmo assim =)
 */
-//dúvida: tem como deixar inputs não selecionados ao carregar pág?
 
 const form = document.querySelector('form');
 const button = document.querySelector('button');
 const result = document.createElement('p');
 button.insertAdjacentElement('beforebegin', result);
+const allAnswers = document.querySelectorAll('.form-check');
+const allInputs = document.querySelectorAll('input');
+
 const rightAnswers = ["B", "B", "A", "A"];
+
+const highlightAnswers = () => {
+    let i = 0;
+    allInputs.forEach(input => {
+        if(!input.checked){
+            console.log('não colore');
+             i++;
+        }else if(input.className === 'T' && input.checked){
+             allAnswers[i].classList.add('correct-answer');
+             i++;
+        }else if(input.className === 'F' && input.checked){
+             allAnswers[i].classList.add('wrong-answer'); 
+             i++;
+         }   
+     })
+}
+
 
 const returnGrade = (counter) => {
     switch(counter) {
@@ -53,6 +72,11 @@ const returnGrade = (counter) => {
 
     const checkRightAnswers = event => {
         event.preventDefault();
+        //dar refresh nas cores
+        const refreshClass = answer => {
+            answer.className = 'form-check my-2 text-dark-50';
+        }
+        allAnswers.forEach(refreshClass);
      
         let counter = 0;    
         let playerAnswers = [
@@ -60,8 +84,8 @@ const returnGrade = (counter) => {
             event.target.inputQuestion2.value,
             event.target.inputQuestion3.value,
             event.target.inputQuestion4.value ];
-    
-            console.log(event.target);
+
+
         playerAnswers.forEach((answer, index) => {
             if(answer === rightAnswers[index]) {
                 counter += 25;
@@ -71,13 +95,12 @@ const returnGrade = (counter) => {
         result.style.marginTop = '20px';
         result.style.fontSize = '30px';
         result.textContent = `Sua pontuação foi ${counter}/100`;
+       
         returnGrade(counter);
-    }
+        highlightAnswers();
+        }
 
 form.addEventListener('submit', checkRightAnswers);
-
-
-
 
 
 
