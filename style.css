@@ -1,0 +1,12 @@
+.wrong-answer {
+    background: rgb(255, 90, 90);
+}
+
+.correct-answer {
+    background: rgb(26, 196, 26);
+}
+
+.main-title {
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+}
