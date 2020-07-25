@@ -1,41 +1,18 @@
-/*
-Este exercício será um pouquinho diferente dos anteriores.
-
-Seu desafio é desenvolver uma versão do quiz que:
-
-- Aborda um tema diferente (não pode ser de filmes);
-- Tem um tema de cores diferente do que foi apresentado na aula;
-- Exibe na tela a pontuação que o usuário fez. Não há certo ou errado, apenas faça. Essa exibição de pontos é uma das implementações que faremos na próxima aula =D
-
-Independente se você já fez o quiz dos filmes enquanto acompanhava a aula, tente fazer esse exercício sem rever partes da aula.
-
-É importante que a sua versão do quiz seja feita apenas com o conteúdo que vimos até aqui.
-
-Depois de fazer o que foi pedido acima, crie um repositório no GitHub para a sua aplicação e abra uma issue no repositório do curso com:
-
-- O link da sua versão do quiz;
-- Quais foram as suas maiores dúvidas ou dificuldades durante a execução desse exercício;
-- Quais foram as suas menores dificuldades durante a execução desse exercício.
-
-Link do repositório do curso: https://github.com/roger-melo-treinamentos/curso-de-js-roger-melo/issues
-
-Ps: se você não conseguiu fazer tudo o que foi pedido acima, abra a issue mesmo assim =)
-*/
 
 const form = document.querySelector('form');
 const button = document.querySelector('button');
 const result = document.createElement('p');
 button.insertAdjacentElement('beforebegin', result);
+
 const allAnswers = document.querySelectorAll('.form-check');
 const allInputs = document.querySelectorAll('input');
 
-const rightAnswers = ["B", "B", "A", "A"];
+const rightAnswers = ["D", "C", "A", "B"];
 
 const highlightAnswers = () => {
     let i = 0;
-    allInputs.forEach(input => {
+    const wichAnswerHighlight = input => {
         if(!input.checked){
-            console.log('não colore');
              i++;
         }else if(input.className === 'T' && input.checked){
              allAnswers[i].classList.add('correct-answer');
@@ -44,9 +21,9 @@ const highlightAnswers = () => {
              allAnswers[i].classList.add('wrong-answer'); 
              i++;
          }   
-     })
+     }
+    allInputs.forEach(wichAnswerHighlight);
 }
-
 
 const returnGrade = (counter) => {
     switch(counter) {
@@ -72,7 +49,6 @@ const returnGrade = (counter) => {
 
     const checkRightAnswers = event => {
         event.preventDefault();
-        //dar refresh nas cores
         const refreshClass = answer => {
             answer.className = 'form-check my-2 text-dark-50';
         }
@@ -85,13 +61,13 @@ const returnGrade = (counter) => {
             event.target.inputQuestion3.value,
             event.target.inputQuestion4.value ];
 
-
-        playerAnswers.forEach((answer, index) => {
+        const CheckAndaddScore = (answer, index) => {
             if(answer === rightAnswers[index]) {
                 counter += 25;
             }
-    
-        })  
+        }
+
+        playerAnswers.forEach(CheckAndaddScore)  
         result.style.marginTop = '20px';
         result.style.fontSize = '30px';
         result.textContent = `Sua pontuação foi ${counter}/100`;
